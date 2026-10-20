@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Formatura | Leissa Tavares Lima</title>
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #6a1b9a;
+            --secondary: #daa520;
+            --background: #0a0518;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text: #ffffff;
+            --text-muted: #b3b3b3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(218, 165, 32, 0.1) 0%, transparent 40%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            perspective: 1000px;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 680px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, rgba(20, 10, 35, 0.95) 0%, rgba(10, 5, 20, 0.98) 100%);
+        }
+
+        .card-front {
+            border: 2px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            overflow-y: auto;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .card-back::-webkit-scrollbar {
+            width: 6px;
+        }
+        .card-back::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* Capa do Convite */
+        .header {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .name {
+            font-size: 1.6rem;
+            color: #fff;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .details {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        /* Selo Interativo */
+        .seal-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .seal {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--secondary) 0%, #b8860b 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(218, 165, 32, 0.4);
+            position: relative;
+            animation: pulse 2s infinite;
+            border: 4px double #000;
+        }
+
+        .seal-inner {
+            color: #000;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+        .seal-ribbon {
+            position: absolute;
+            bottom: -20px;
+            width: 30px;
+            height: 60px;
+            background: #b8860b;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%);
+            z-index: -1;
+        }
+
+        .seal-ribbon.left { left: 40px; transform: rotate(5deg); }
+        .seal-ribbon.right { right: 40px; transform: rotate(-5deg); }
+
+        .hint {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+            text-transform: uppercase;
+        }
+
+        .footer-front {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            width: 100%;
+        }
+
+        /* Parte de Trás (Conteúdo) */
+        .photo-container {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(218, 165, 32, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .message {
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            padding: 0 10px;
+        }
+
+        .events-title {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+            padding-bottom: 5px;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .event-card {
+            width: 100%;
+            background: var(--card-bg);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 0 12px 12px 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .event-icon {
+            font-size: 1.8rem;
+        }
+
+        .event-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .event-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        .event-time {
+            color: var(--secondary);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .event-place {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .dress-code {
+            background: rgba(218, 165, 32, 0.1);
+            border: 1px dashed var(--secondary);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.8rem;
+            text-align: center;
+            color: #fff;
+            line-height: 1.4;
+            width: 100%;
+        }
+
+        .back-btn {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animações */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(218, 165, 32, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 0 40px rgba(218, 165, 32, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 30px rgba(218, 165, 32, 0.4); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        @media (max-height: 700px) {
+            .card { height: 600px; }
+            .seal { width: 110px; height: 110px; }
+            .main-title { font-size: 2.5rem; }
+            .photo-container { height: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card" id="inviteCard">
+            
+            <!-- FRENTE DO CONVITE -->
+            <div class="card-face card-front">
+                <div class="header">
+                    <p class="subtitle">Convite de</p>
+                    <h1 class="main-title">Formatura</h1>
+                    <h2 class="name">Leissa Tavares Lima</h2>
+                </div>
+
+                <div class="seal-container">
+                    <div class="seal">
+                        <div class="seal-inner">🎓</div>
+                        <div class="seal-ribbon left"></div>
+                        <div class="seal-ribbon right"></div>
+                    </div>
+                    <p class="hint">✦ Toque no selo para abrir</p>
+                </div>
+
+                <div class="details">
+                    <p>Terceirão • Matutino • 2026</p>
+                </div>
+
