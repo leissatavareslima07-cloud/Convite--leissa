@@ -1,0 +1,21 @@
+CONVITE INTERATIVO — LEISSA TAVARES LIMA
+
+Arquivos:
+- index.html: página do convite com envelope clicável e animação do nome.
+- assets/leissa-beca.png: foto de beca escolhida na conversa.
+
+COMO TESTAR NO CELULAR
+1. Extraia o arquivo ZIP usando o app Arquivos/Files ou um gerenciador de arquivos.
+2. Abra index.html no navegador, se o gerenciador permitir. Alguns celulares não carregam os arquivos locais corretamente; nesse caso, publique a pasta.
+
+COMO PUBLICAR GRATUITAMENTE PELO CELULAR (GitHub Pages)
+1. Entre em https://github.com/ e crie uma conta ou entre na sua conta.
+2. Crie um repositório público novo, por exemplo: convite-leissa.
+3. Envie index.html e a pasta assets com leissa-beca.png para o repositório. No site, use Add file > Upload files.
+4. Abra Settings > Pages. Em Build and deployment, escolha Deploy from a branch, selecione a branch main e a pasta /(root), depois Save.
+5. Aguarde o GitHub Pages publicar. O endereço aparecerá na mesma seção Settings > Pages. Só compartilhe quando abrir corretamente no seu celular.
+
+OBSERVAÇÕES
+- O convite ainda NÃO está publicado; o link só existirá depois de você concluir a publicação.
+- Confirme se o endereço da igreja e os dados do evento estão corretos antes de compartilhar.
+- Para alterar a foto, substitua assets/leissa-beca.png por outra imagem com o mesmo nome.
